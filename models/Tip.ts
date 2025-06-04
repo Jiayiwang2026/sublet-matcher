@@ -40,7 +40,7 @@ const TipSchema = new mongoose.Schema<ITip>(
       required: [true, 'Amount is required'],
       min: [1, 'Amount must be at least 1'],
       validate: {
-        validator: function(value: number) {
+        validator: function (value: number) {
           // Ensure amount has at most 2 decimal places
           return Number(value.toFixed(2)) === value;
         },
@@ -63,7 +63,7 @@ const TipSchema = new mongoose.Schema<ITip>(
     timestamps: true, // Adds createdAt and updatedAt automatically
     toJSON: {
       virtuals: true,
-      transform: function(doc, ret) {
+      transform: function (doc, ret) {
         ret.id = ret._id;
         delete ret._id;
         delete ret.__v;
@@ -93,7 +93,7 @@ TipSchema.virtual('userDetails', {
 });
 
 // Static method to get total tips for a listing
-TipSchema.statics.getTotalTipsForListing = async function(listingId: string): Promise<number> {
+TipSchema.statics.getTotalTipsForListing = async function (listingId: string): Promise<number> {
   const result = await this.aggregate([
     { $match: { listing: new mongoose.Types.ObjectId(listingId), status: TipStatus.Completed } },
     { $group: { _id: '$listing', total: { $sum: '$amount' } } },
@@ -102,7 +102,7 @@ TipSchema.statics.getTotalTipsForListing = async function(listingId: string): Pr
 };
 
 // Static method to get user's total tips
-TipSchema.statics.getUserTotalTips = async function(userId: string): Promise<number> {
+TipSchema.statics.getUserTotalTips = async function (userId: string): Promise<number> {
   const result = await this.aggregate([
     { $match: { fromUser: new mongoose.Types.ObjectId(userId), status: TipStatus.Completed } },
     { $group: { _id: '$fromUser', total: { $sum: '$amount' } } },
@@ -111,14 +111,14 @@ TipSchema.statics.getUserTotalTips = async function(userId: string): Promise<num
 };
 
 // Instance method to complete a tip
-TipSchema.methods.completeTip = async function(transactionId: string): Promise<void> {
+TipSchema.methods.completeTip = async function (transactionId: string): Promise<void> {
   this.status = TipStatus.Completed;
   this.transactionId = transactionId;
   await this.save();
 };
 
 // Instance method to fail a tip
-TipSchema.methods.failTip = async function(reason?: string): Promise<void> {
+TipSchema.methods.failTip = async function (reason?: string): Promise<void> {
   this.status = TipStatus.Failed;
   await this.save();
 };
@@ -131,4 +131,4 @@ interface TipModel extends Model<ITip> {
 
 const Tip = (mongoose.models.Tip || mongoose.model<ITip, TipModel>('Tip', TipSchema)) as TipModel;
 
-export default Tip; 
+export default Tip;

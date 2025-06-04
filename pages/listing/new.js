@@ -72,9 +72,7 @@ const NewListing = () => {
           {/* Left column - Form header */}
           <div className="md:col-span-1">
             <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">
-                发布新房源
-              </h3>
+              <h3 className="text-lg font-medium leading-6 text-gray-900">发布新房源</h3>
               <p className="mt-1 text-sm text-gray-600">
                 请填写以下信息发布您的房源。带 * 的为必填项。
               </p>
@@ -88,10 +86,7 @@ const NewListing = () => {
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   {/* Title */}
                   <div>
-                    <label
-                      htmlFor="title"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                       标题 *
                     </label>
                     <input
@@ -107,9 +102,7 @@ const NewListing = () => {
                       className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                     />
                     {errors.title && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.title.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
                     )}
                   </div>
 
@@ -134,19 +127,14 @@ const NewListing = () => {
                       className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                     />
                     {errors.description && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.description.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
                     )}
                   </div>
 
                   {/* Price and Deposit */}
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div>
-                      <label
-                        htmlFor="price"
-                        className="block text-sm font-medium text-gray-700"
-                      >
+                      <label htmlFor="price" className="block text-sm font-medium text-gray-700">
                         月租 (¥) *
                       </label>
                       <input
@@ -164,17 +152,12 @@ const NewListing = () => {
                         className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                       />
                       {errors.price && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.price.message}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{errors.price.message}</p>
                       )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="deposit"
-                        className="block text-sm font-medium text-gray-700"
-                      >
+                      <label htmlFor="deposit" className="block text-sm font-medium text-gray-700">
                         押金 (¥) *
                       </label>
                       <input
@@ -192,9 +175,7 @@ const NewListing = () => {
                         className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                       />
                       {errors.deposit && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.deposit.message}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{errors.deposit.message}</p>
                       )}
                     </div>
                   </div>
@@ -217,17 +198,12 @@ const NewListing = () => {
                         className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                       />
                       {errors.startDate && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.startDate.message}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
                       )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="endDate"
-                        className="block text-sm font-medium text-gray-700"
-                      >
+                      <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
                         结束日期 *
                       </label>
                       <input
@@ -239,19 +215,14 @@ const NewListing = () => {
                         className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                       />
                       {errors.endDate && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.endDate.message}
-                        </p>
+                        <p className="mt-1 text-sm text-red-600">{errors.endDate.message}</p>
                       )}
                     </div>
                   </div>
 
                   {/* Location */}
                   <div>
-                    <label
-                      htmlFor="location"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="location" className="block text-sm font-medium text-gray-700">
                       地址 *
                     </label>
                     <input
@@ -263,18 +234,13 @@ const NewListing = () => {
                       className="mt-1 block w-full shadow-sm sm:text-sm rounded-md"
                     />
                     {errors.location && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.location.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>
                     )}
                   </div>
 
                   {/* Room Type */}
                   <div>
-                    <label
-                      htmlFor="roomType"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="roomType" className="block text-sm font-medium text-gray-700">
                       房型 *
                     </label>
                     <select
@@ -288,9 +254,7 @@ const NewListing = () => {
                       <option value="shared">合租</option>
                     </select>
                     {errors.roomType && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.roomType.message}
-                      </p>
+                      <p className="mt-1 text-sm text-red-600">{errors.roomType.message}</p>
                     )}
                   </div>
 
@@ -305,10 +269,7 @@ const NewListing = () => {
                       />
                     </div>
                     <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="furnished"
-                        className="font-medium text-gray-700"
-                      >
+                      <label htmlFor="furnished" className="font-medium text-gray-700">
                         配备家具
                       </label>
                       <p className="text-gray-500">房间是否配备基本家具</p>
@@ -335,4 +296,4 @@ const NewListing = () => {
   );
 };
 
-export default NewListing; 
+export default NewListing;

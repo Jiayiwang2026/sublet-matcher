@@ -14,8 +14,8 @@ export function useAuth() {
   useEffect(() => {
     // Fetch user session
     fetch('/api/auth/session')
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setUser(data.user || null);
         setIsLoading(false);
       })
@@ -26,4 +26,4 @@ export function useAuth() {
   }, []);
 
   return { user, isLoading };
-} 
+}

@@ -5,4 +5,4 @@ declare global {
     conn: Mongoose | null;
     promise: Promise<Mongoose> | null;
   };
-} 
+}

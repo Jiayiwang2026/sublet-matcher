@@ -19,7 +19,7 @@ const Header = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  
+
   // TODO: Replace with real auth hook
   const [user, setUser] = useState<User | null>(null);
 
@@ -77,11 +77,7 @@ const Header = () => {
                   className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
                 >
                   {user.avatar ? (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="h-8 w-8 rounded-full"
-                    />
+                    <img src={user.avatar} alt={user.name} className="h-8 w-8 rounded-full" />
                   ) : (
                     <div className="h-8 w-8 rounded-full bg-blue-600 text-white flex items-center justify-center">
                       {user.name.charAt(0)}
@@ -139,12 +135,7 @@ const Header = () => {
             >
               <span className="sr-only">Open main menu</span>
               {/* Hamburger icon */}
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMenuOpen ? (
                   <path
                     strokeLinecap="round"
@@ -227,4 +218,4 @@ const Header = () => {
   );
 };
 
-export default Header; 
+export default Header;

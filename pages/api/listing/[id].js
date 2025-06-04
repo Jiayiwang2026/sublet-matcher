@@ -25,9 +25,7 @@ handler.get(async (req, res) => {
     await connectToDatabase();
 
     const { id } = req.query;
-    const listing = await Listing.findById(id)
-      .populate('owner', 'username email')
-      .lean();
+    const listing = await Listing.findById(id).populate('owner', 'username email').lean();
 
     if (!listing) {
       return res.status(404).json({
@@ -123,4 +121,4 @@ handler.delete(authMiddleware, async (req, res) => {
   }
 });
 
-export default handler; 
+export default handler;

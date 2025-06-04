@@ -57,11 +57,7 @@ const validateUpdateListing = (body: UpdateListingBody) => {
 };
 
 // Authorization middleware
-const isAuthorized = async (
-  req: AuthenticatedRequest,
-  res: NextApiResponse,
-  next: NextHandler
-) => {
+const isAuthorized = async (req: AuthenticatedRequest, res: NextApiResponse, next: NextHandler) => {
   const listingId = req.query.id as string;
 
   if (!isValidObjectId(listingId)) {
@@ -128,9 +124,7 @@ handler
 
       await connectToDatabase();
 
-      const listing = await Listing.findById(listingId)
-        .populate('owner', 'username email')
-        .lean();
+      const listing = await Listing.findById(listingId).populate('owner', 'username email').lean();
 
       if (!listing) {
         return res.status(404).json({
@@ -151,7 +145,7 @@ handler
   .put(authMiddleware, isAuthorized, async (req: AuthenticatedRequest, res: NextApiResponse) => {
     try {
       const body = req.body as UpdateListingBody;
-      
+
       // Validate input
       const validationErrors = validateUpdateListing(body);
       if (validationErrors.length > 0) {
@@ -202,4 +196,4 @@ handler
     }
   });
 
-export default handler; 
+export default handler;

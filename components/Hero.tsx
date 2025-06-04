@@ -63,12 +63,8 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
       <div
         className="absolute inset-0 w-full h-full bg-cover bg-center"
         style={{
-          backgroundImage: backgroundImage
-            ? `url(${backgroundImage})`
-            : 'none',
-          backgroundColor: backgroundImage
-            ? 'rgba(0, 0, 0, 0.5)'
-            : 'rgb(59, 130, 246)', // Blue background if no image
+          backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+          backgroundColor: backgroundImage ? 'rgba(0, 0, 0, 0.5)' : 'rgb(59, 130, 246)', // Blue background if no image
         }}
       />
 
@@ -76,12 +72,8 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Text */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            找到你的理想住所
-          </h1>
-          <p className="text-xl text-white opacity-90">
-            轻松搜索和匹配合适的转租房源
-          </p>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">找到你的理想住所</h1>
+          <p className="text-xl text-white opacity-90">轻松搜索和匹配合适的转租房源</p>
         </div>
 
         {/* Search Form */}
@@ -127,9 +119,7 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
                   errors.endDate ? 'border-red-500' : 'border-gray-300'
                 }`}
               />
-              {errors.endDate && (
-                <p className="text-red-500 text-xs">{errors.endDate.message}</p>
-              )}
+              {errors.endDate && <p className="text-red-500 text-xs">{errors.endDate.message}</p>}
             </div>
 
             {/* Location */}
@@ -146,9 +136,7 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
                   errors.location ? 'border-red-500' : 'border-gray-300'
                 }`}
               />
-              {errors.location && (
-                <p className="text-red-500 text-xs">{errors.location.message}</p>
-              )}
+              {errors.location && <p className="text-red-500 text-xs">{errors.location.message}</p>}
             </div>
 
             {/* Min Price */}
@@ -174,9 +162,7 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
                   }`}
                 />
               </div>
-              {errors.minPrice && (
-                <p className="text-red-500 text-xs">{errors.minPrice.message}</p>
-              )}
+              {errors.minPrice && <p className="text-red-500 text-xs">{errors.minPrice.message}</p>}
             </div>
 
             {/* Max Price */}
@@ -204,9 +190,7 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
                   }`}
                 />
               </div>
-              {errors.maxPrice && (
-                <p className="text-red-500 text-xs">{errors.maxPrice.message}</p>
-              )}
+              {errors.maxPrice && <p className="text-red-500 text-xs">{errors.maxPrice.message}</p>}
             </div>
 
             {/* Search Button */}
@@ -216,12 +200,7 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
                 className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
               >
                 <div className="flex items-center justify-center space-x-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -240,4 +219,4 @@ const Hero = ({ onSearch, backgroundImage }: HeroProps) => {
   );
 };
 
-export default Hero; 
+export default Hero;

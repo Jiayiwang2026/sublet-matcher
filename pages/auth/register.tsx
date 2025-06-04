@@ -30,7 +30,7 @@ const RegisterPage: React.FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  
+
   const {
     register,
     handleSubmit,
@@ -65,7 +65,7 @@ const RegisterPage: React.FC = () => {
       if (result.success && result.token) {
         // Save token in cookie (expires in 7 days)
         Cookies.set('auth_token', result.token, { expires: 7 });
-        
+
         // Save user data in localStorage
         if (result.user) {
           localStorage.setItem('user', JSON.stringify(result.user));
@@ -84,20 +84,15 @@ const RegisterPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           {/* Header */}
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              创建新账号
-            </h2>
+            <h2 className="text-3xl font-extrabold text-gray-900">创建新账号</h2>
             <p className="mt-2 text-sm text-gray-600">
               或{' '}
-              <Link
-                href="/auth/login"
-                className="font-medium text-blue-600 hover:text-blue-500"
-              >
+              <Link href="/auth/login" className="font-medium text-blue-600 hover:text-blue-500">
                 已有账号？立即登录
               </Link>
             </p>
@@ -110,9 +105,7 @@ const RegisterPage: React.FC = () => {
               <div className="rounded-md bg-red-50 p-4">
                 <div className="flex">
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
-                      {error}
-                    </h3>
+                    <h3 className="text-sm font-medium text-red-800">{error}</h3>
                   </div>
                 </div>
               </div>
@@ -121,10 +114,7 @@ const RegisterPage: React.FC = () => {
             <div className="rounded-md shadow-sm space-y-4">
               {/* Username Field */}
               <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   用户名
                 </label>
                 <div className="mt-1">
@@ -143,19 +133,14 @@ const RegisterPage: React.FC = () => {
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.username && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.username.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.username.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Email Field */}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   邮箱
                 </label>
                 <div className="mt-1">
@@ -174,19 +159,14 @@ const RegisterPage: React.FC = () => {
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.email && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.email.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   密码
                 </label>
                 <div className="mt-1">
@@ -205,9 +185,7 @@ const RegisterPage: React.FC = () => {
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.password && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.password.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>
                   )}
                 </div>
               </div>
@@ -226,17 +204,14 @@ const RegisterPage: React.FC = () => {
                     type="password"
                     {...register('confirmPassword', {
                       required: '请确认密码',
-                      validate: value =>
-                        value === password || '两次输入的密码不一致',
+                      validate: (value) => value === password || '两次输入的密码不一致',
                     })}
                     className={`appearance-none block w-full px-3 py-2 border ${
                       errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.confirmPassword && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.confirmPassword.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.confirmPassword.message}</p>
                   )}
                 </div>
               </div>
@@ -263,4 +238,4 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage; 
+export default RegisterPage;

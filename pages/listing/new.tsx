@@ -26,7 +26,7 @@ const roomTypes = [
 
 const NewListingPage = () => {
   const router = useRouter();
-  const { user, isLoading } = useAuth();
+  const { user, loading } = useAuth();
   const [submitError, setSubmitError] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -48,10 +48,10 @@ const NewListingPage = () => {
 
   useEffect(() => {
     // Redirect if not logged in
-    if (!isLoading && !user) {
+    if (!loading && !user) {
       router.push('/auth/login');
     }
-  }, [user, isLoading, router]);
+  }, [user, loading, router]);
 
   const onSubmit = async (data: ListingFormData) => {
     try {
@@ -61,8 +61,8 @@ const NewListingPage = () => {
       // Convert images string to array
       const imageUrls = data.images
         .split(',')
-        .map(url => url.trim())
-        .filter(url => url.length > 0);
+        .map((url) => url.trim())
+        .filter((url) => url.length > 0);
 
       const response = await fetch('/api/listing', {
         method: 'POST',
@@ -92,10 +92,12 @@ const NewListingPage = () => {
     }
   };
 
-  if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-    </div>;
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
   }
 
   return (
@@ -107,9 +109,7 @@ const NewListingPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">发布新房源</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            请填写以下信息来发布您的房源
-          </p>
+          <p className="mt-2 text-sm text-gray-600">请填写以下信息来发布您的房源</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -222,8 +222,10 @@ const NewListingPage = () => {
                     id="endDate"
                     {...register('endDate', {
                       required: '请选择结束日期',
-                      validate: value =>
-                        !startDate || new Date(value) > new Date(startDate) || '结束日期必须晚于开始日期',
+                      validate: (value) =>
+                        !startDate ||
+                        new Date(value) > new Date(startDate) ||
+                        '结束日期必须晚于开始日期',
                     })}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
@@ -276,7 +278,7 @@ const NewListingPage = () => {
                   {...register('roomType', { required: '请选择房间类型' })}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 >
-                  {roomTypes.map(type => (
+                  {roomTypes.map((type) => (
                     <option key={type.value} value={type.value}>
                       {type.label}
                     </option>
@@ -304,9 +306,7 @@ const NewListingPage = () => {
 
           {/* Submit Button */}
           <div className="flex justify-end">
-            {submitError && (
-              <p className="mr-4 text-sm text-red-600 self-center">{submitError}</p>
-            )}
+            {submitError && <p className="mr-4 text-sm text-red-600 self-center">{submitError}</p>}
             <button
               type="submit"
               disabled={isSubmitting}
@@ -321,4 +321,4 @@ const NewListingPage = () => {
   );
 };
 
-export default NewListingPage; 
+export default NewListingPage;

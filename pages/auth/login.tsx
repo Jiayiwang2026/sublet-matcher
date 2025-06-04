@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  
+
   const {
     register,
     handleSubmit,
@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
       if (result.success && result.token) {
         // Save token in cookie (expires in 7 days)
         Cookies.set('auth_token', result.token, { expires: 7 });
-        
+
         // Save user data in localStorage
         if (result.user) {
           localStorage.setItem('user', JSON.stringify(result.user));
@@ -76,20 +76,15 @@ const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-grow flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           {/* Header */}
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900">
-              登录账号
-            </h2>
+            <h2 className="text-3xl font-extrabold text-gray-900">登录账号</h2>
             <p className="mt-2 text-sm text-gray-600">
               或{' '}
-              <Link
-                href="/auth/register"
-                className="font-medium text-blue-600 hover:text-blue-500"
-              >
+              <Link href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500">
                 没有账号？立即注册
               </Link>
             </p>
@@ -102,9 +97,7 @@ const LoginPage: React.FC = () => {
               <div className="rounded-md bg-red-50 p-4">
                 <div className="flex">
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
-                      {error}
-                    </h3>
+                    <h3 className="text-sm font-medium text-red-800">{error}</h3>
                   </div>
                 </div>
               </div>
@@ -131,19 +124,14 @@ const LoginPage: React.FC = () => {
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.emailOrUsername && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.emailOrUsername.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.emailOrUsername.message}</p>
                   )}
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   密码
                 </label>
                 <div className="mt-1">
@@ -158,9 +146,7 @@ const LoginPage: React.FC = () => {
                     } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
                   />
                   {errors.password && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.password.message}
-                    </p>
+                    <p className="mt-2 text-sm text-red-600">{errors.password.message}</p>
                   )}
                 </div>
               </div>
@@ -197,4 +183,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

@@ -45,16 +45,12 @@ handler.get(authMiddleware, isAdmin, async (req, res) => {
       Tip.aggregate([
         { $match: { status: 'completed' } },
         { $group: { _id: null, total: { $sum: '$amount' } } },
-      ]).then(result => result[0]?.total || 0),
+      ]).then((result) => result[0]?.total || 0),
     ]);
 
     // Fetch latest records
     const [latestUsers, latestListings, latestTips] = await Promise.all([
-      User.find()
-        .select('username email createdAt')
-        .sort({ createdAt: -1 })
-        .limit(10)
-        .lean(),
+      User.find().select('username email createdAt').sort({ createdAt: -1 }).limit(10).lean(),
       Listing.find()
         .select('title price location createdAt owner')
         .populate('owner', 'username')
@@ -91,4 +87,4 @@ handler.get(authMiddleware, isAdmin, async (req, res) => {
   }
 });
 
-export default handler; 
+export default handler;

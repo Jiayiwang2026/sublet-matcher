@@ -63,7 +63,7 @@ handler.post(async (req, res) => {
     // Validate request body
     const body = req.body as LoginRequestBody;
     const validationErrors = validateInput(body);
-    
+
     if (validationErrors.length > 0) {
       return res.status(400).json({
         success: false,
@@ -94,7 +94,7 @@ handler.post(async (req, res) => {
 
     // Compare password
     const isPasswordValid = await comparePassword(body.password, user.password);
-    
+
     if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
@@ -136,4 +136,4 @@ handler.post(async (req, res) => {
   }
 });
 
-export default handler; 
+export default handler;

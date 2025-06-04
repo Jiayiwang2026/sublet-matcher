@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useAuth } from '../../lib/hooks/useAuth';     // 或 './../../../lib/hooks/useAuth' 取决于文件层级
-import Header from '../../components/Header';          // 用相对路径找到 Header.tsx 文件
+import { useAuth } from '../../lib/hooks/useAuth'; // 或 './../../../lib/hooks/useAuth' 取决于文件层级
+import Header from '../../components/Header'; // 用相对路径找到 Header.tsx 文件
 import Footer from '../../components/Footer';
-
 
 interface DashboardStats {
   totalUsers: number;
@@ -124,9 +123,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-2">总用户数</h3>
-                  <p className="text-3xl font-bold text-blue-600">
-                    {data?.stats.totalUsers || 0}
-                  </p>
+                  <p className="text-3xl font-bold text-blue-600">{data?.stats.totalUsers || 0}</p>
                 </div>
                 <div className="bg-white rounded-lg shadow p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-2">总房源数</h3>
@@ -150,7 +147,7 @@ const AdminDashboard = () => {
                     <h3 className="text-lg font-medium text-gray-900">最新注册用户</h3>
                   </div>
                   <ul className="divide-y divide-gray-200">
-                    {data?.lists.latestUsers.map(user => (
+                    {data?.lists.latestUsers.map((user) => (
                       <li key={user._id} className="p-6">
                         <p className="font-medium text-gray-900">{user.username}</p>
                         <p className="text-sm text-gray-500">{user.email}</p>
@@ -168,7 +165,7 @@ const AdminDashboard = () => {
                     <h3 className="text-lg font-medium text-gray-900">最新房源</h3>
                   </div>
                   <ul className="divide-y divide-gray-200">
-                    {data?.lists.latestListings.map(listing => (
+                    {data?.lists.latestListings.map((listing) => (
                       <li key={listing._id} className="p-6">
                         <p className="font-medium text-gray-900">{listing.title}</p>
                         <p className="text-sm text-gray-500">
@@ -189,14 +186,10 @@ const AdminDashboard = () => {
                     <h3 className="text-lg font-medium text-gray-900">最新打赏</h3>
                   </div>
                   <ul className="divide-y divide-gray-200">
-                    {data?.lists.latestTips.map(tip => (
+                    {data?.lists.latestTips.map((tip) => (
                       <li key={tip._id} className="p-6">
-                        <p className="font-medium text-gray-900">
-                          ¥{tip.amount.toFixed(2)}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {tip.listing.title}
-                        </p>
+                        <p className="font-medium text-gray-900">¥{tip.amount.toFixed(2)}</p>
+                        <p className="text-sm text-gray-500">{tip.listing.title}</p>
                         <p className="text-xs text-gray-400 mt-1">
                           {tip.fromUser.username} 打赏于{' '}
                           {new Date(tip.createdAt).toLocaleDateString('zh-CN')}
@@ -216,4 +209,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard; 
+export default AdminDashboard;

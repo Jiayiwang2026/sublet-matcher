@@ -164,46 +164,43 @@ handler.get(async (req, res) => {
 });
 
 // POST /api/listing - Create new listing (protected)
-handler.post(
-  authMiddleware,
-  async (req: AuthenticatedRequest, res) => {
-    try {
-      const body = req.body as ListingBody;
-      
-      // Validate input
-      const validationErrors = validateListing(body);
-      if (validationErrors.length > 0) {
-        return res.status(400).json({
-          error: 'Validation failed',
-          message: validationErrors.join(', '),
-        });
-      }
+handler.post(authMiddleware, async (req: AuthenticatedRequest, res) => {
+  try {
+    const body = req.body as ListingBody;
 
-      await connectToDatabase();
-
-      // Create listing
-      const listing = await Listing.create({
-        ...body,
-        owner: req.user!.id,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-
-      // Populate owner details
-      await listing.populate('owner', 'username email');
-
-      return res.status(201).json({
-        success: true,
-        listing,
-      });
-    } catch (error) {
-      console.error('Create listing error:', error);
-      return res.status(500).json({
-        error: 'Database error',
-        message: '创建房源失败',
+    // Validate input
+    const validationErrors = validateListing(body);
+    if (validationErrors.length > 0) {
+      return res.status(400).json({
+        error: 'Validation failed',
+        message: validationErrors.join(', '),
       });
     }
-  }
-);
 
-export default handler; 
+    await connectToDatabase();
+
+    // Create listing
+    const listing = await Listing.create({
+      ...body,
+      owner: req.user!.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    // Populate owner details
+    await listing.populate('owner', 'username email');
+
+    return res.status(201).json({
+      success: true,
+      listing,
+    });
+  } catch (error) {
+    console.error('Create listing error:', error);
+    return res.status(500).json({
+      error: 'Database error',
+      message: '创建房源失败',
+    });
+  }
+});
+
+export default handler;

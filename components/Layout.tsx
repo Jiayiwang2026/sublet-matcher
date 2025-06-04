@@ -19,4 +19,4 @@ const Layout = ({ children, hideHeader = false, hideFooter = false }: LayoutProp
   );
 };
 
-export default Layout; 
+export default Layout;

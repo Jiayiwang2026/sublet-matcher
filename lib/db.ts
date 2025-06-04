@@ -13,7 +13,7 @@ export function withDatabase(handler: ApiHandler): ApiHandler {
     try {
       // Connect to the database
       await connectToDatabase();
-      
+
       // Call the original handler
       return handler(req, res);
     } catch (error) {
@@ -21,4 +21,4 @@ export function withDatabase(handler: ApiHandler): ApiHandler {
       return res.status(500).json({ error: 'Database connection failed' });
     }
   };
-} 
+}

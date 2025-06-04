@@ -97,4 +97,4 @@ UserSchema.index({ username: 1 });
 
 // Export the model
 const User = models.User || model<IUser>('User', UserSchema);
-export default User; 
+export default User;

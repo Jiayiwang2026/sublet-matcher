@@ -47,4 +47,4 @@ tipSchema.index({ createdAt: -1 });
 
 const Tip = mongoose.models.Tip || mongoose.model('Tip', tipSchema);
 
-export default Tip; 
+export default Tip;

@@ -40,7 +40,7 @@ const listingSchema = new Schema<IListing>({
   roomType: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
 // Add indexes for common queries
@@ -50,12 +50,12 @@ listingSchema.index({ location: 'text' }); // Enable text search on location
 listingSchema.index({ roomType: 1 });
 
 // Virtual for duration in days
-listingSchema.virtual('durationDays').get(function(this: IListing) {
+listingSchema.virtual('durationDays').get(function (this: IListing) {
   return Math.ceil((this.endDate.getTime() - this.startDate.getTime()) / (1000 * 60 * 60 * 24));
 });
 
 // Pre-save middleware to validate dates
-listingSchema.pre('save', function(next) {
+listingSchema.pre('save', function (next) {
   if (this.endDate <= this.startDate) {
     next(new Error('End date must be after start date'));
   }
@@ -63,7 +63,7 @@ listingSchema.pre('save', function(next) {
 });
 
 // Static method to find available listings
-listingSchema.statics.findAvailable = function(startDate: Date, endDate: Date) {
+listingSchema.statics.findAvailable = function (startDate: Date, endDate: Date) {
   return this.find({
     startDate: { $lte: endDate },
     endDate: { $gte: startDate },
@@ -73,4 +73,4 @@ listingSchema.statics.findAvailable = function(startDate: Date, endDate: Date) {
 // Create the model
 export const Listing: Model<IListing> = models.Listing || model<IListing>('Listing', listingSchema);
 
-export default Listing; 
+export default Listing;

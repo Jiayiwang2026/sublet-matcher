@@ -30,10 +30,7 @@ export interface AuthenticatedRequest extends NextApiRequest {
   listing?: any;
 }
 
-type NextApiHandler = (
-  req: AuthenticatedRequest,
-  res: NextApiResponse
-) => Promise<void> | void;
+type NextApiHandler = (req: AuthenticatedRequest, res: NextApiResponse) => Promise<void> | void;
 
 /**
  * Generates a JWT token for a user
@@ -178,10 +175,7 @@ export const comparePassword = async (
 };
 
 // Example usage of authMiddleware with roleAuth
-export const protectedRouteHandler = (
-  handler: NextApiHandler,
-  allowedRoles: string[] = []
-) => {
+export const protectedRouteHandler = (handler: NextApiHandler, allowedRoles: string[] = []) => {
   return async (req: AuthenticatedRequest, res: NextApiResponse) => {
     return new Promise((resolve, reject) => {
       authMiddleware(req, res, () => {
@@ -190,4 +184,4 @@ export const protectedRouteHandler = (
       });
     });
   };
-}; 
+};

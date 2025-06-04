@@ -77,7 +77,7 @@ handler.post(async (req, res) => {
     // Validate request body
     const body = req.body as RegisterRequestBody;
     const validationErrors = validateInput(body);
-    
+
     if (validationErrors.length > 0) {
       return res.status(400).json({
         success: false,
@@ -91,19 +91,15 @@ handler.post(async (req, res) => {
 
     // Check if user already exists
     const existingUser = await User.findOne({
-      $or: [
-        { email: body.email.toLowerCase() },
-        { username: body.username.toLowerCase() },
-      ],
+      $or: [{ email: body.email.toLowerCase() }, { username: body.username.toLowerCase() }],
     });
 
     if (existingUser) {
       return res.status(400).json({
         success: false,
         error: 'User exists',
-        message: existingUser.email === body.email.toLowerCase()
-          ? '该邮箱已被注册'
-          : '该用户名已被使用',
+        message:
+          existingUser.email === body.email.toLowerCase() ? '该邮箱已被注册' : '该用户名已被使用',
       });
     }
 
@@ -147,4 +143,4 @@ handler.post(async (req, res) => {
   }
 });
 
-export default handler; 
+export default handler;

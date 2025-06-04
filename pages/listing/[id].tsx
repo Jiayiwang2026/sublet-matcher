@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { connectToDatabase } from '@/lib/mongodb';
-import { Listing } from '@/models/Listing';
-import { useAuth } from '@/hooks/useAuth';
-import TipButton from '@/components/TipButton';
+import { useState } from 'react';
+import { connectToDatabase } from '../../lib/mongodb';
+import { Listing } from '../../models/Listing';
+import { useAuth } from '../../hooks/useAuth';
+import TipButton from '../../components/TipButton';
+import { Types } from 'mongoose';
 
 interface ListingDetailProps {
   listing: {
@@ -34,9 +34,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
     await connectToDatabase();
 
-    const listing = await Listing.findById(params?.id)
-      .populate('owner', 'username email')
-      .lean();
+    const listing = await Listing.findById(params?.id).populate('owner', 'username email').lean();
 
     if (!listing) {
       return {
@@ -53,7 +51,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
             _id: listing._id.toString(),
             owner: {
               ...listing.owner,
-              _id: listing.owner._id.toString(),
+              _id: (listing.owner as unknown as { _id: Types.ObjectId })._id.toString(),
             },
           })
         ),
@@ -106,13 +104,10 @@ const ListingDetailPage = ({ listing }: ListingDetailProps) => {
                 发布于 {new Date(listing.createdAt).toLocaleDateString('zh-CN')}
               </p>
             </div>
-            
+
             {/* Tip Button */}
             {user && user.id !== listing.owner._id && (
-              <TipButton
-                listingId={listing._id}
-                onSuccess={handleTipSuccess}
-              />
+              <TipButton listingId={listing._id} onSuccess={handleTipSuccess} />
             )}
           </div>
         </div>
@@ -135,9 +130,7 @@ const ListingDetailPage = ({ listing }: ListingDetailProps) => {
             {/* Description */}
             <div className="prose max-w-none">
               <h2 className="text-xl font-semibold text-gray-900">房源描述</h2>
-              <p className="mt-4 text-gray-700 whitespace-pre-line">
-                {listing.description}
-              </p>
+              <p className="mt-4 text-gray-700 whitespace-pre-line">{listing.description}</p>
             </div>
           </div>
 
@@ -158,9 +151,7 @@ const ListingDetailPage = ({ listing }: ListingDetailProps) => {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-sm font-medium text-gray-500">房型</dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    {roomTypeLabels[listing.roomType]}
-                  </dd>
+                  <dd className="mt-1 text-sm text-gray-900">{roomTypeLabels[listing.roomType]}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">地理位置</dt>
@@ -208,4 +199,4 @@ const ListingDetailPage = ({ listing }: ListingDetailProps) => {
   );
 };
 
-export default ListingDetailPage; 
+export default ListingDetailPage;

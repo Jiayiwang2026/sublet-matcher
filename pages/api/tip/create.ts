@@ -104,4 +104,4 @@ handler.post(authMiddleware, async (req, res) => {
   }
 });
 
-export default handler; 
+export default handler;

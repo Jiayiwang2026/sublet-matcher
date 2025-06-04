@@ -11,4 +11,4 @@ const Layout = ({ children, hideHeader = false, hideFooter = false }) => {
   );
 };
 
-export default Layout; 
+export default Layout;
