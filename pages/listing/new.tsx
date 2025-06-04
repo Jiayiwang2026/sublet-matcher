@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import Head from 'next/head';
 
 interface ListingFormData {
