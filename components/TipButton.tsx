@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '../lib/hooks/useAuth';
 
 interface TipButtonProps {
   listingId: string;

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { useAuth } from '@/hooks/useAuth';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { useAuth } from '../../lib/hooks/useAuth';     // 或 './../../../lib/hooks/useAuth' 取决于文件层级
+import Header from '../../components/Header';          // 用相对路径找到 Header.tsx 文件
+import Footer from '../../components/Footer';
+
 
 interface DashboardStats {
   totalUsers: number;

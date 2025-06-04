@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import type { NextHandler } from 'next-connect';
 
 // Environment variables type check
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -21,11 +22,12 @@ interface JwtPayload {
   exp: number;
 }
 
-interface AuthenticatedRequest extends NextApiRequest {
+export interface AuthenticatedRequest extends NextApiRequest {
   user?: {
     id: string;
     role: string;
   };
+  listing?: any;
 }
 
 type NextApiHandler = (
@@ -72,46 +74,43 @@ export const verifyToken = (token: string): JwtPayload => {
 
 /**
  * Middleware to authenticate requests using JWT
- * @param handler - Next.js API route handler
+ * @param req - Next.js API request object
+ * @param res - Next.js API response object
+ * @param next - Next.js API next handler
  * @returns Wrapped handler with authentication
  */
-export const authMiddleware = (handler: NextApiHandler) => {
-  return async (req: AuthenticatedRequest, res: NextApiResponse) => {
-    try {
-      // Check for Authorization header
-      const authHeader = req.headers.authorization;
-      if (!authHeader?.startsWith('Bearer ')) {
-        return res.status(401).json({
-          error: 'Authorization required',
-          message: 'No valid authorization token provided',
-        });
-      }
-
-      // Extract and verify token
-      const token = authHeader.split(' ')[1];
-      const decoded = verifyToken(token);
-
-      // Attach user info to request
-      req.user = {
-        id: decoded.id,
-        role: decoded.role,
-      };
-
-      // Continue to handler
-      return handler(req, res);
-    } catch (error) {
-      if (error instanceof Error) {
-        return res.status(401).json({
-          error: 'Authentication failed',
-          message: error.message,
-        });
-      }
+export const authMiddleware = async (
+  req: AuthenticatedRequest,
+  res: NextApiResponse,
+  next: NextHandler
+) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader?.startsWith('Bearer ')) {
       return res.status(401).json({
-        error: 'Authentication failed',
-        message: 'An unexpected error occurred',
+        error: 'Authorization required',
+        message: 'No valid authorization token provided',
       });
     }
-  };
+
+    const token = authHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+      role: string;
+    };
+
+    req.user = {
+      id: decoded.id,
+      role: decoded.role,
+    };
+
+    await next();
+  } catch (error) {
+    return res.status(401).json({
+      error: 'Authentication failed',
+      message: error instanceof Error ? error.message : 'An unexpected error occurred',
+    });
+  }
 };
 
 /**
@@ -183,7 +182,12 @@ export const protectedRouteHandler = (
   handler: NextApiHandler,
   allowedRoles: string[] = []
 ) => {
-  return authMiddleware(
-    allowedRoles.length ? roleAuth(handler, allowedRoles) : handler
-  );
+  return async (req: AuthenticatedRequest, res: NextApiResponse) => {
+    return new Promise((resolve, reject) => {
+      authMiddleware(req, res, () => {
+        const finalHandler = allowedRoles.length ? roleAuth(handler, allowedRoles) : handler;
+        resolve(finalHandler(req, res));
+      });
+    });
+  };
 }; 

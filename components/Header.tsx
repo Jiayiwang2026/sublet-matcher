@@ -5,7 +5,9 @@ import { useRouter } from 'next/router';
 // Types for user and navigation items
 interface User {
   name: string;
+  email: string;
   avatar?: string;
+  role?: string;
 }
 
 interface NavItem {
@@ -19,7 +21,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   // TODO: Replace with real auth hook
-  const user: User | null = null;
+  const [user, setUser] = useState<User | null>(null);
 
   // Navigation items
   const navItems: NavItem[] = [

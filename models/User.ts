@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import { Schema, model, models, Document, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 // Define the interface for User document
@@ -13,7 +13,7 @@ export interface IUser extends Document {
 }
 
 // Define the User schema
-const UserSchema = new mongoose.Schema<IUser>(
+const UserSchema = new Schema<IUser>(
   {
     username: {
       type: String,
@@ -96,6 +96,5 @@ UserSchema.index({ email: 1 });
 UserSchema.index({ username: 1 });
 
 // Export the model
-const User = (mongoose.models.User || mongoose.model<IUser>('User', UserSchema)) as Model<IUser>;
-
+const User = models.User || model<IUser>('User', UserSchema);
 export default User; 
